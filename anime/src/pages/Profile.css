@@ -1,0 +1,15 @@
+.profile-page {
+  padding: 100px 20px 50px;
+  min-height: 100vh;
+}
+
+.profile-page h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-page p {
+  text-align: center;
+  opacity: 0.8;
+  margin-bottom: 3rem;
+}

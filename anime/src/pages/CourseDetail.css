@@ -1,0 +1,599 @@
+.course-detail-page {
+  padding: 100px 20px 50px;
+  min-height: 100vh;
+}
+
+.course-header {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.course-header h1 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.course-description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.course-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.level, .duration, .free-badge, .price-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.level {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.duration {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.free-badge {
+  background: #4CAF50;
+  color: white;
+}
+
+.price-badge {
+  background: #FF9800;
+  color: white;
+}
+
+.course-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+/* Сол жақ панель */
+.sidebar {
+  background: rgba(43, 43, 43, 0.8);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: fit-content;
+}
+
+.sidebar h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.module-section {
+  margin-bottom: 1rem;
+}
+
+.module-title {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.module-title:hover {
+  background: rgba(247, 223, 30, 0.1);
+  border-color: rgba(247, 223, 30, 0.3);
+}
+
+.module-title.active {
+  background: rgba(247, 223, 30, 0.15);
+  border-color: var(--primary-color);
+}
+
+.module-title span {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.lessons-list {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.lesson-item {
+  padding: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0.3rem;
+  border: 1px solid transparent;
+}
+
+.lesson-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lesson-item.active {
+  background: rgba(247, 223, 30, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Оң жақ панель */
+.content-area {
+  background: rgba(43, 43, 43, 0.8);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.tab.active {
+  opacity: 1;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  background: rgba(247, 223, 30, 0.1);
+}
+
+.tab-content {
+  padding: 2rem;
+  min-height: 500px;
+}
+
+/* Теория контенты */
+.theory-content h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.lesson-content {
+  line-height: 1.8;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.code-examples {
+  margin-top: 2rem;
+}
+
+.code-examples h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.code-example {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-example h4 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.example-code {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  border: 1px solid #333;
+}
+
+.example-code code {
+  color: #d4d4d4;
+  font-family: 'Courier New', monospace;
+}
+
+/* Практика контенты */
+.practice-content h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.code-editor-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.editor-header {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-header h3 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.editor-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.run-btn, .reset-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.run-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.reset-btn {
+  background: #ff9800;
+  color: white;
+}
+
+.run-btn:hover, .reset-btn:hover {
+  transform: translateY(-2px);
+}
+
+.code-editor {
+  width: 100%;
+  height: 300px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border: none;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+}
+
+.output-container {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.output-container h4 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.output {
+  background: #2d2d2d;
+  padding: 1rem;
+  border-radius: 5px;
+  min-height: 100px;
+  color: #4CAF50;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  border: 1px solid #333;
+}
+
+/* Тест контенты */
+.test-content h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.test-info {
+  text-align: center;
+  padding: 2rem;
+}
+
+.test-info h3 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.test-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.test-meta span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.start-test-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-test-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 223, 30, 0.3);
+}
+
+.no-test {
+  text-align: center;
+  padding: 3rem;
+  opacity: 0.7;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+@media (max-width: 768px) {
+  .course-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .test-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+/* Ақылы курс ескертуі */
+.premium-notice {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.premium-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.premium-text {
+  flex: 1;
+}
+
+.premium-text h3 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.premium-text p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.buy-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 223, 30, 0.3);
+}
+
+/* Бұғатталған табтар */
+.tab.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.tab.locked::after {
+  content: '🔒';
+  margin-left: 0.5rem;
+}
+
+/* Төлем модалы */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.payment-modal {
+  background: rgba(43, 43, 43, 0.95);
+  border-radius: 15px;
+  padding: 0;
+  max-width: 500px;
+  width: 100%;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.course-preview h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.course-features {
+  margin: 1.5rem 0;
+}
+
+.feature {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.feature:last-child {
+  border-bottom: none;
+}
+
+.price-section {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.final-price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.payment-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.confirm-payment, .cancel-payment {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-payment {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.cancel-payment {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.confirm-payment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 223, 30, 0.3);
+}
+
+.cancel-payment:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}

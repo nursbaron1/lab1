@@ -1,0 +1,408 @@
+.test-page {
+  padding: 100px 20px 50px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+}
+
+.test-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.test-header h1 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.test-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(43, 43, 43, 0.8);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(247, 223, 30, 0.3);
+}
+
+.test-progress span {
+  font-weight: 600;
+}
+
+.timer {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.test-content {
+  background: rgba(43, 43, 43, 0.8);
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.question-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.question-text {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-label::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(247, 223, 30, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.option-label:hover::before {
+  left: 100%;
+}
+
+.option-label:hover {
+  border-color: var(--primary-color);
+  background: rgba(247, 223, 30, 0.05);
+  transform: translateX(5px);
+}
+
+.option-label input[type="radio"],
+.option-label input[type="checkbox"] {
+  margin-right: 1rem;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.option-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Таңдалған опция үшін */
+.option-label input:checked + .option-text {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.option-label input:checked ~ .option-text::before {
+  content: '✓ ';
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.nav-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.prev-btn {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.next-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.submit-btn {
+  background: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.prev-btn:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 223, 30, 0.3);
+}
+
+.submit-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Тест нәтижелері */
+.test-results {
+  background: rgba(43, 43, 43, 0.8);
+  border-radius: 15px;
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.test-results h2 {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.result-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.result-card.passed {
+  border-color: #4CAF50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.result-card.failed {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.result-score {
+  margin-bottom: 1.5rem;
+}
+
+.percentage {
+  font-size: 3rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.result-card.passed .percentage {
+  color: #4CAF50;
+}
+
+.result-card.failed .percentage {
+  color: #ff6b6b;
+}
+
+.status {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.result-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.result-details p {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retry-btn, .course-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+}
+
+.retry-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.course-btn {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 223, 30, 0.3);
+}
+
+.course-btn:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* Жүктелу және қателер */
+.loading, .error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+}
+
+.loading {
+  color: var(--primary-color);
+}
+
+.error {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+/* Артқа батырмасы */
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* Адаптивтік дизайн */
+@media (max-width: 768px) {
+  .test-page {
+    padding: 80px 15px 30px;
+  }
+
+  .test-progress {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+  }
+
+  .option-label {
+    padding: 1rem;
+  }
+
+  .option-text {
+    font-size: 1rem;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .result-details {
+    grid-template-columns: 1fr;
+  }
+
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .retry-btn, .course-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* Анимациялар */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-container {
+  animation: slideIn 0.5s ease-out;
+}
+
+.test-results {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Progress indicator */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), #ffd700);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
