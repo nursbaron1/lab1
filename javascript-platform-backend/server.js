@@ -1,16 +1,169 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import sequelize from './models/index.js';
-import { Course, Module, Lesson, Test, Question } from './models/associations.js';
+import { Course, Module, Lesson, Test, Question, User } from './models/associations.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-here';
 
 app.use(cors());
 app.use(express.json());
+
+// ==================== АУТЕНТИФИКАЦИЯ МАРШРУТТАРЫ ====================
+
+// Тіркелу
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    console.log('📝 Тіркелу сұранысы:', req.body);
+    
+    const { firstName, lastName, email, password } = req.body;
+
+    // Мәліметтерді тексеру
+    if (!firstName || !lastName || !email || !password) {
+      return res.status(400).json({ 
+        message: 'Барлық өрістерді толтырыңыз' 
+      });
+    }
+
+    // Пользователь бар ма соны тексереміз
+    const userExists = await User.findOne({ where: { email } });
+
+    if (userExists) {
+      return res.status(400).json({ 
+        message: 'Бұл пошта бойынша пайдаланушы тіркелген' 
+      });
+    }
+
+    // Құпия сөзді хэштейміз
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Жаңа пайдаланушыны қосамыз
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword
+    });
+
+    // JWT токен жасаймыз
+    const token = jwt.sign(
+      { userId: newUser.id },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    console.log('✅ Тіркелу сәтті:', newUser.email);
+
+    res.json({
+      token,
+      user: {
+        id: newUser.id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email
+      }
+    });
+  } catch (err) {
+    console.error('❌ Тіркелу қатесі:', err);
+    res.status(500).json({ 
+      message: 'Сервер қатесі: ' + err.message 
+    });
+  }
+});
+
+// Кіру
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    console.log('🔐 Кіру сұранысы:', req.body);
+    
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ 
+        message: 'Пошта мен құпия сөзді енгізіңіз' 
+      });
+    }
+
+    // Пользовательді табамыз
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(400).json({ 
+        message: 'Қате пошта немесе құпия сөз' 
+      });
+    }
+
+    // Құпия сөзді тексереміз
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({ 
+        message: 'Қате пошта немесе құпия сөз' 
+      });
+    }
+
+    // JWT токен жасаймыз
+    const token = jwt.sign(
+      { userId: user.id },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    console.log('✅ Кіру сәтті:', user.email);
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
+    });
+  } catch (err) {
+    console.error('❌ Кіру қатесі:', err);
+    res.status(500).json({ 
+      message: 'Сервер қатесі: ' + err.message 
+    });
+  }
+});
+
+// Пользовательді алу (профиль үшін)
+app.get('/api/auth/me', async (req, res) => {
+  try {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ message: 'Токен жоқ' });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findByPk(decoded.userId, {
+      attributes: { exclude: ['password'] }
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Пользователь табылмады' });
+    }
+
+    res.json({ user });
+  } catch (err) {
+    console.error('❌ Профиль алу қатесі:', err);
+    res.status(401).json({ message: 'Токен жарамсыз' });
+  }
+});
+
+// Тест маршруты
+app.get('/api/auth/test', (req, res) => {
+  res.json({ message: 'Аутентификация сервері жұмыс істеуде!' });
+});
 
 // ==================== БАСТАПҚЫ ДЕРЕКТЕР ====================
 const initializeData = async () => {
@@ -26,7 +179,7 @@ const initializeData = async () => {
       const courses = await Course.bulkCreate([
         {
           title: "JavaScript Негіздері",
-          description: "JavaScript тілінің негізгі ұғымдарын үйреніңіз. Айнымалылар, функциялар, циклдар және басқа негізгі ұғымдар.",
+          description: "JavaScript тілінің негізгі ұғымдарын үйреніз. Айнымалылар, функциялар, циклдар және басқа негізгі ұғымдар.",
           level: "beginner",
           duration: 1200,
           isFree: true,
@@ -67,7 +220,7 @@ const initializeData = async () => {
         },
         {
           title: "Python Бағдарламалау",
-          description: "Python тілінде бағдарламалауды үйреніңіз. Деректерді талдау, веб-әзірлеу, автоматтау.",
+          description: "Python тілінде бағдарламалауды үйреніз. Деректерді талдау, веб-әзірлеу, автоматтау.",
           level: "beginner",
           duration: 1500, 
           isFree: true,
@@ -412,6 +565,9 @@ app.get('/api', (req, res) => {
     message: 'JavaScript Learning Platform API is running!',
     version: '1.0.0',
     endpoints: [
+      '/api/auth/register',
+      '/api/auth/login',
+      '/api/auth/me',
       '/api/courses',
       '/api/courses/:id',
       '/api/lessons', 
@@ -634,8 +790,8 @@ sequelize.sync({ force: true })
     // Серверді іске қосу
     app.listen(PORT, () => {
       console.log(`\n🚀 Сервер ${PORT} портында жұмыс істеп тұр`);
-      console.log(`📊 API: http://localhost:${PORT}/api`);
-      console.log(`🎓 Барлық курстар: http://localhost:${PORT}/api/courses`);
+      console.log(`🔐 Аутентификация API: http://localhost:${PORT}/api/auth`);
+      console.log(`📊 Курстар API: http://localhost:${PORT}/api/courses`);
       console.log(`📚 Сабақтар: http://localhost:${PORT}/api/lessons`);
       console.log(`🧪 Тесттер: http://localhost:${PORT}/api/tests`);
       console.log(`\n📊 Жиынтық:`);
@@ -644,6 +800,10 @@ sequelize.sync({ force: true })
       console.log(`   • React: 3 модуль, 6 сабақ, 6 тест сұрағы`);
       console.log(`   • Барлығы: 15 сабақ, 11 тест сұрағы`);
       console.log(`\n⭐ React.js курсында енді 6 тест сұрағы бар!`);
+      console.log(`\n🔐 Аутентификация эндпоинттері:`);
+      console.log(`   POST /api/auth/register - Тіркелу`);
+      console.log(`   POST /api/auth/login - Кіру`);
+      console.log(`   GET  /api/auth/me - Профиль алу`);
     });
   })
   .catch(err => {

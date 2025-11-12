@@ -4,6 +4,7 @@ import Features from '../components/Features/Features';
 import LearningSection from '../components/LearningSection/LearningSection';
 import IntelligenceSection from '../components/IntelligenceSection/IntelligenceSection';
 
+
 const Home = () => {
   return (
     <div className="home">

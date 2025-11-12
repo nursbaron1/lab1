@@ -1,39 +1,24 @@
+// src/components/LearningSection/LearningSection.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LearningSection.css';
+import { lessonsData } from '../../data/lessonsData';
 
 const LearningSection = () => {
-  const [algorithms] = useState([
-    {
-      name: "JavaScript Негіздері",
-      description: "Айнымалылар, функциялар, циклдар және басқа негізгі ұғымдар",
-      level: "Бастауыш",
-      topics: ["Айнымалылар", "Типтер", "Операторлар", "Функциялар"],
-      color: "#f7df1e"
-    },
-    {
-      name: "Объектілер және Массивтер",
-      description: "Күрделі деректер құрылымдарымен жұмыс",
-      level: "Орташа",
-      topics: ["Объектілер", "Массивтер", "JSON", "Деструктуризация"],
-      color: "#61dafb"
-    },
-    {
-      name: "Асинхронды JavaScript",
-      description: "Promise, async/await және API шалу",
-      level: "Кеңейтілген", 
-      topics: ["Promise", "async/await", "fetch API", "Error handling"],
-      color: "#ff6b6b"
-    },
-    {
-      name: "DOM Манипуляциясы",
-      description: "Web беттерін динамикалық түрде өзгерту",
-      level: "Орташа",
-      topics: ["DOM элементтері", "Оқиғалар", "Формалар", "Анимация"],
-      color: "#4ecdc4"
-    }
-  ]);
-
+  const navigate = useNavigate();
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(0);
+
+  const algorithms = Object.values(lessonsData);
+
+  const handleStartLesson = (topicId, type) => {
+    if (type === 'lesson') {
+      navigate(`/lesson/${topicId}`);
+    } else if (type === 'practice') {
+      navigate(`/practice/${topicId}`);
+    } else if (type === 'test') {
+      navigate(`/test/${topicId}`);
+    }
+  };
 
   return (
     <section className="learning-section">
@@ -50,7 +35,7 @@ const LearningSection = () => {
             <div className="algorithm-list">
               {algorithms.map((algo, index) => (
                 <div
-                  key={index}
+                  key={algo.id}
                   className={`algorithm-tab ${selectedAlgorithm === index ? 'active' : ''}`}
                   onClick={() => setSelectedAlgorithm(index)}
                   style={{ 
@@ -59,7 +44,7 @@ const LearningSection = () => {
                       `${algo.color}20` : 'transparent'
                   }}
                 >
-                  <div className="algo-name">{algo.name}</div>
+                  <div className="algo-name">{algo.title}</div>
                   <div className="algo-level" style={{ color: algo.color }}>
                     {algo.level}
                   </div>
@@ -73,7 +58,7 @@ const LearningSection = () => {
               <div className="algorithm-card">
                 <div className="algo-header">
                   <h3 style={{ color: algorithms[selectedAlgorithm].color }}>
-                    {algorithms[selectedAlgorithm].name}
+                    {algorithms[selectedAlgorithm].title}
                   </h3>
                   <span 
                     className="level-badge"
@@ -93,20 +78,35 @@ const LearningSection = () => {
                 <div className="topics-section">
                   <h4>Негізгі тақырыптар:</h4>
                   <div className="topics-grid">
-                    {algorithms[selectedAlgorithm].topics.map((topic, index) => (
+                    {algorithms[selectedAlgorithm].content.terminologies.map((term, index) => (
                       <div key={index} className="topic-item">
                         <span className="topic-bullet" 
                               style={{background: algorithms[selectedAlgorithm].color}}></span>
-                        {topic}
+                        {term.term}
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div className="algo-actions">
-                  <button className="btn-primary">Сабақты бастау</button>
-                  <button className="btn-secondary">Практикалық жаттығу</button>
-                  <button className="btn-outline">Тестілеу</button>
+                  <button 
+                    className="btn-primary"
+                    onClick={() => handleStartLesson(algorithms[selectedAlgorithm].id, 'lesson')}
+                  >
+                    Сабақты бастау
+                  </button>
+                  <button 
+                    className="btn-secondary"
+                    onClick={() => handleStartLesson(algorithms[selectedAlgorithm].id, 'practice')}
+                  >
+                    Практикалық жаттығу
+                  </button>
+                  <button 
+                    className="btn-outline"
+                    onClick={() => handleStartLesson(algorithms[selectedAlgorithm].id, 'test')}
+                  >
+                    Тестілеу
+                  </button>
                 </div>
               </div>
             )}

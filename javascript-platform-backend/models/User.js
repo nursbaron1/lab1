@@ -1,6 +1,6 @@
+// models/User.js
 import { DataTypes } from 'sequelize';
 import sequelize from './index.js';
-import bcrypt from 'bcryptjs';
 
 const User = sequelize.define('User', {
   id: {
@@ -8,65 +8,30 @@ const User = sequelize.define('User', {
     primaryKey: true,
     autoIncrement: true
   },
-  username: {
-    type: DataTypes.STRING,
+  firstName: {
+    type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
-    validate: {
-      len: [3, 30]
-    }
+    field: 'first_name'
+  },
+  lastName: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    field: 'last_name'
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true
-    }
+    unique: true
   },
   password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: [6, 100]
-    }
-  },
-  fullName: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  avatar: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  bio: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  level: {
-    type: DataTypes.ENUM('beginner', 'intermediate', 'advanced'),
-    defaultValue: 'beginner'
-  },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
+    type: DataTypes.STRING(255),
+    allowNull: false
   }
 }, {
-  hooks: {
-    beforeCreate: async (user) => {
-      user.password = await bcrypt.hash(user.password, 12);
-    },
-    beforeUpdate: async (user) => {
-      if (user.changed('password')) {
-        user.password = await bcrypt.hash(user.password, 12);
-      }
-    }
-  }
+  tableName: 'users',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
-
-// Парольді тексеру әдісі
-User.prototype.correctPassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
-};
 
 export default User;

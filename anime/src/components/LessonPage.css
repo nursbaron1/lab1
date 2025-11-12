@@ -1,0 +1,114 @@
+/* LessonPage.css */
+.lesson-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.back-btn {
+  background: #f7df1e;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.lesson-level {
+  background: #666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9em;
+}
+
+.lesson-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.lesson-tabs button {
+  padding: 10px 20px;
+  border: 2px solid #f7df1e;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lesson-tabs button.active {
+  background: #f7df1e;
+  color: black;
+}
+
+.lesson-content {
+  min-height: 500px;
+}
+
+.theory-content p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.code-example {
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.code-editor {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+}
+
+.code-editor pre {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.code-result {
+  background: #000000;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.code-result pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.terminology-list {
+  display: grid;
+  gap: 20px;
+}
+
+.term-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #f7df1e;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.term-name {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.term-definition {
+  color: #666;
+  line-height: 1.5;
+}
