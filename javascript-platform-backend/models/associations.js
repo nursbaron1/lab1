@@ -3,6 +3,7 @@ import Module from './Module.js';
 import Lesson from './Lesson.js';
 import Test from './Test.js';
 import Question from './Question.js';
+import User from './User.js';
 
 // Курс - Модуль
 Course.hasMany(Module, { foreignKey: 'courseId', as: 'modules' });
@@ -30,4 +31,4 @@ Question.belongsTo(Test, {
 Course.hasMany(Lesson, { foreignKey: 'courseId', as: 'courseLessons' });
 Lesson.belongsTo(Course, { foreignKey: 'courseId', as: 'course' });
 
-export { Course, Module, Lesson, Test, Question };
+export { Course, Module, Lesson, Test, Question, User };

@@ -1,8 +1,20 @@
+// Header.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+    window.location.reload();
+  };
+
   return (
     <header className="header">
       <div className="header-container">
@@ -19,12 +31,34 @@ const Header = () => {
         </nav>
         
         <div className="header-actions">
-          <button className="btn-login">Кіру</button>
-          <button className="btn-register">Тіркелу</button>
+          {isLoggedIn ? (
+            <div className="user-menu">
+              <span className="user-greeting">
+                Сәлем, {user.firstName}!
+              </span>
+              <button className="btn-logout" onClick={handleLogout}>
+                Шығу
+              </button>
+            </div>
+          ) : (
+            <>
+              <button 
+                className="btn-login" 
+                onClick={() => navigate('/login')}
+              >
+                Кіру
+              </button>
+              <button 
+                className="btn-register" 
+                onClick={() => navigate('/register')}
+              >
+                Тіркелу
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>
   );
 };
-
 export default Header;
