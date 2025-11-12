@@ -47,7 +47,7 @@ const Courses = () => {
                   className="btn-primary"
                   onClick={() => handleStartCourse(course.id)}
                 >
-                  Курсты бастау
+                  Курсты бастау 
                 </button>
                 <button className="btn-secondary">
                   Толығырақ
