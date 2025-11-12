@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://js-course.vercel.app/api';
 
 // Жалпы API функциясы
 const apiRequest = async (endpoint, options = {}) => {
