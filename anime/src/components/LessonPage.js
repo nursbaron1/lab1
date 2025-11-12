@@ -19,24 +19,24 @@ const LessonPage = () => {
     }
   }, [topicId, navigate]);
 
-  const executeCode = (code) => {
-    try {
-      // Қауіпсіз код орындау
-      const consoleLogs = [];
-      const originalConsoleLog = console.log;
-      console.log = (...args) => {
-        consoleLogs.push(args.join(' '));
-      };
+  // const executeCode = (code) => {
+  //   try {
+  //     // Қауіпсіз код орындау
+  //     const consoleLogs = [];
+  //     const originalConsoleLog = console.log;
+  //     console.log = (...args) => {
+  //       consoleLogs.push(args.join(' '));
+  //     };
 
-      // Кодты орындау
-      eval(code);
+  //     // Кодты орындау
+  //     eval(code);
 
-      console.log = originalConsoleLog;
-      return consoleLogs.join('\n');
-    } catch (error) {
-      return `Қате: ${error.message}`;
-    }
-  };
+  //     console.log = originalConsoleLog;
+  //     return consoleLogs.join('\n');
+  //   } catch (error) {
+  //     return `Қате: ${error.message}`;
+  //   }
+  // };
 
   if (!lesson) {
     return <div>Жүктелуде...</div>;
